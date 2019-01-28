@@ -36,17 +36,28 @@ def ask_for_info
 end 
 
 def print_header
-  puts "The students of Villains Academy"
+  puts "The students of Makers Academy"
   puts "-------------"
 end
 
-def print(students)
-  entry = 0
-  while entry < students.length do
-    puts "#{students[entry][:name]} (#{students[entry][:cohort]} cohort)".center(30)
-    entry += 1
-  end
-end
+def print_by_cohort(students)
+  
+  cohorts = {}
+  
+  students.each do |student|
+    cohort = student[:cohort]
+    if cohorts[cohort] == nil
+      cohorts[cohort] = []
+    end 
+    
+    cohorts[cohort] << student[:name]
+  end 
+  
+  cohorts.each do |cohort, names|
+    puts "in the #{cohort.to_s} cohort, we have ..."
+    puts names
+  end 
+end 
 
 def print_footer(names)
   puts "Overall, we have #{names.count} great students"
@@ -54,8 +65,5 @@ end
 
 students = input_students
 print_header
-print(students)
+print_by_cohort(students)
 print_footer(students)
-
-
-
