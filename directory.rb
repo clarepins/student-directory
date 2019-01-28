@@ -34,7 +34,7 @@ end
 def print(students)
   entry = 0
   while entry < students.length do
-    puts "#{students[entry][:name]} (#{students[entry][:cohort]} cohort)"
+    puts "#{students[entry][:name]} (#{students[entry][:cohort]} cohort)".center(30)
     entry += 1
   end
 end
