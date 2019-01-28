@@ -7,7 +7,11 @@ def input_students
     
     while true do
       students << {name: $name, cohort: $cohort, hobby: $hobby, birth_country: $birth_country}
-      puts "how we have #{students.count} students"
+      if students.count == 1
+        puts "now we have 1 student"
+      else
+        puts "now we have #{students.count} students"
+      end 
       
       ask_for_info
 
@@ -60,7 +64,11 @@ def print_by_cohort(students)
 end 
 
 def print_footer(names)
-  puts "Overall, we have #{names.count} great students"
+  if names.count == 1
+    puts "Overall, we have 1 great student"
+  else 
+    puts "Overall, we have #{names.count} great students"
+  end 
 end
 
 students = input_students
