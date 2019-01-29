@@ -1,16 +1,22 @@
 def input_students
-    puts "please enter the names of the students, cohort, hobby and country of birth"
+    puts "please enter the names of students and their cohort"
     puts "press enter twice to end"
-    students = []
     
+    students = []
+   
     while true do
-      ask_for_info
+        puts "name?"
+        $name = gets.chomp
+        if !$name.empty?
+          puts "cohort?"
+          $cohort = gets.chomp
+        end 
       
       if $name.empty?
         break
       end 
       
-      students << {name: $name, cohort: $cohort, hobby: $hobby, birth_country: $birth_country}
+      students << {name: $name, cohort: $cohort}
       if students.count == 1
         puts "now we have 1 student"
       else
@@ -19,24 +25,6 @@ def input_students
       
     end 
     students
-end 
-
-def ask_for_info
-  puts "name?"
-  $name = gets.gsub("\n", "")
-  if !$name.empty?
-    puts "cohort?"
-    cohort = gets.gsub("\n", "")
-    if cohort.empty?
-      $cohort = :january
-    else 
-      $cohort = cohort.to_sym
-    end 
-    puts "hobby?"
-    $hobby = gets.gsub("\n", "")
-    puts "country of birth?"
-    $birth_country = gets.gsub("\n", "")
-  end 
 end 
 
 def print_header
@@ -72,18 +60,39 @@ def print_footer(names)
   end 
 end
 
-students = input_students
-puts students
-
-if students.empty?
-  puts "There are no students at Makers"
-else 
-  print_header
-  print_by_cohort(students)
-  print_footer(students)
+def interactive_menu
+  students = []
+  loop do 
+  # 1 print the menu and ask the user what to do 
+    puts "Menu (select option number)"
+    puts "1. input student(s)"
+    puts "2. list student(s)"
+    puts "9. exit"
+  # 2 read the input and save it to a var
+    menu_choice = gets.chomp
+  # 3 do what the user has asked
+    case menu_choice 
+      when "1"
+        students = input_students
+      when "2"
+        if students.empty?
+          puts "There are no students at Makers"
+        else 
+          print_header
+          print_by_cohort(students)
+          print_footer(students)
+        end 
+      when "9"
+        # exit
+      else 
+        puts "Try again"
+    end 
+  end 
 end 
 
+interactive_menu
 
 
- 
+
+
  
