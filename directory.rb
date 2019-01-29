@@ -1,22 +1,20 @@
 def input_students
     puts "please enter the names of the students, cohort, hobby and country of birth"
-    puts "press enter five times to end"
+    puts "press enter twice to end"
     students = []
     
-    ask_for_info
-    
     while true do
+      ask_for_info
+      
+      if $name.empty?
+        break
+      end 
+      
       students << {name: $name, cohort: $cohort, hobby: $hobby, birth_country: $birth_country}
       if students.count == 1
         puts "now we have 1 student"
       else
         puts "now we have #{students.count} students"
-      end 
-      
-      ask_for_info
-
-      if $name.empty?
-        break
       end 
       
     end 
@@ -26,17 +24,19 @@ end
 def ask_for_info
   puts "name?"
   $name = gets.gsub("\n", "")
-  puts "cohort?"
-  cohort = gets.gsub("\n", "")
-  if cohort.empty?
-    $cohort = :january
-  else 
-    $cohort = cohort.to_sym
+  if !$name.empty?
+    puts "cohort?"
+    cohort = gets.gsub("\n", "")
+    if cohort.empty?
+      $cohort = :january
+    else 
+      $cohort = cohort.to_sym
+    end 
+    puts "hobby?"
+    $hobby = gets.gsub("\n", "")
+    puts "country of birth?"
+    $birth_country = gets.gsub("\n", "")
   end 
-  puts "hobby?"
-  $hobby = gets.gsub("\n", "")
-  puts "country of birth?"
-  $birth_country = gets.gsub("\n", "")
 end 
 
 def print_header
@@ -60,6 +60,7 @@ def print_by_cohort(students)
   cohorts.each do |cohort, names|
     puts "in the #{cohort.to_s} cohort, we have ..."
     puts names
+     
   end 
 end 
 
@@ -72,6 +73,17 @@ def print_footer(names)
 end
 
 students = input_students
-print_header
-print_by_cohort(students)
-print_footer(students)
+puts students
+
+if students.empty?
+  puts "There are no students at Makers"
+else 
+  print_header
+  print_by_cohort(students)
+  print_footer(students)
+end 
+
+
+
+ 
+ 
