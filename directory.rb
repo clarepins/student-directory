@@ -25,18 +25,18 @@ end
 
 def ask_for_info
   puts "name?"
-  $name = gets.chomp
+  $name = gets.gsub("\n", "")
   puts "cohort?"
-  cohort = gets.chomp
+  cohort = gets.gsub("\n", "")
   if cohort.empty?
     $cohort = :january
   else 
     $cohort = cohort.to_sym
   end 
   puts "hobby?"
-  $hobby = gets.chomp
+  $hobby = gets.gsub("\n", "")
   puts "country of birth?"
-  $birth_country = gets.chomp
+  $birth_country = gets.gsub("\n", "")
 end 
 
 def print_header
