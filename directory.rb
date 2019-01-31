@@ -86,6 +86,7 @@ def save_students
     file.puts csv_line
   end
   file.close
+  puts "#{@students.count} students have been saved to students.csv"
 end
 
 def load_students(filename = "students.csv")
@@ -95,6 +96,7 @@ def load_students(filename = "students.csv")
     input_to_hash(name, cohort)
   end 
   file.close
+  puts "#{@students.count} students are now loaded."
 end 
 
 def gets_filename
