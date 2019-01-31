@@ -76,28 +76,28 @@ def print_footer
   puts "Overall, we have #{@students.count} great students"
 end
 
-def save_students(filename)
+def save_students(filename = "students.csv")
   # open the file for writing
   puts "please specify filename"
   filename = gets.chomp
-  file = File.open(filename, "w")
+  File.open(filename, "w") do |file|
   # iterate over the array of students
-  @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
+    @students.each do |student|
+      student_data = [student[:name], student[:cohort]]
+      csv_line = student_data.join(",")
+      file.puts csv_line
+    end
   end
-  file.close
   puts "#{@students.count} students have been saved to students.csv"
 end
 
 def load_students(filename = "students.csv") 
-  file = File.open(filename, "r")
-  file.readlines.each do |line|
-    name, cohort = line.chomp.split(",")
-    input_to_hash(name, cohort)
-  end 
-  file.close
+  File.open(filename, "r") do |file|
+    file.readlines.each do |line|
+      name, cohort = line.chomp.split(",")
+      input_to_hash(name, cohort)
+    end 
+  end
   puts "#{@students.count} students are now loaded."
 end 
 
