@@ -1,4 +1,5 @@
 @students = [] # an empty array accessible to all methods
+require "csv" 
 
 def print_menu
   puts "1. Input the students"
@@ -80,24 +81,19 @@ def save_students(filename = "students.csv")
   # open the file for writing
   puts "please specify filename"
   filename = gets.chomp
-  File.open(filename, "w") do |file|
-  # iterate over the array of students
+  CSV.open("./#{filename}", "wb") do |line|
     @students.each do |student|
-      student_data = [student[:name], student[:cohort]]
-      csv_line = student_data.join(",")
-      file.puts csv_line
-    end
-  end
+      line << [student[:name], student[:cohort]]
+    end 
+  end 
   puts "#{@students.count} students have been saved to students.csv"
 end
 
 def load_students(filename = "students.csv") 
-  File.open(filename, "r") do |file|
-    file.readlines.each do |line|
-      name, cohort = line.chomp.split(",")
-      input_to_hash(name, cohort)
-    end 
-  end
+  CSV.foreach("./#{filename}") do |line|
+    name, cohort = line
+    input_to_hash(name, cohort)
+  end   
   puts "#{@students.count} students are now loaded."
 end 
 
@@ -121,5 +117,3 @@ end
 
 gets_filename
 interactive_menu
-
-
