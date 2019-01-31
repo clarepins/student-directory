@@ -42,6 +42,10 @@ def input_students
   # get the first name
   name = STDIN.gets.chomp
   # while the name is not empty, repeat this code
+  repeat_input_students(name)
+end
+
+def repeat_input_students(name)
   while !name.empty? do
     # add the student hash to the array
     input_to_hash(name)
@@ -49,7 +53,7 @@ def input_students
     # get another name from the user
     name = STDIN.gets.chomp
   end
-end
+end 
 
 def show_students
   print_header
@@ -93,22 +97,25 @@ def load_students(filename = "students.csv")
   file.close
 end 
 
-def try_load_students
-  filename = ARGV.first # first argument from the command line
-  if filename.nil? # setting default value if no arguments are given
-    filename = "students.csv"
+def gets_filename
+  @filename = ARGV.first # first argument from the command line
+  if @filename.nil? # setting default value if no arguments are given
+    @filename = "students.csv"
   end 
-        
-  if File.exists?(filename) # if it exists
-    load_students(filename)
-    puts "Loaded #{@students.count} lines from #{filename}"
-  else # if it doesn't exist
-    puts "File name: #{filename} doesn't exist."
-    exit # quit the program
-  end
+  load_if_file_exists
 end
 
-try_load_students
+def load_if_file_exists
+  if File.exists?(@filename) # if it exists
+    load_students(@filename)
+    puts "Loaded #{@students.count} lines from #{@filename}"
+  else # if it doesn't exist
+    puts "File name: #{@filename} doesn't exist."
+    exit # quit the program
+  end
+end 
+
+gets_filename
 interactive_menu
 
 
